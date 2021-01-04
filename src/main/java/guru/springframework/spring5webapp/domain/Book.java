@@ -1,29 +1,43 @@
-package models;
+package guru.springframework.spring5webapp.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String Title;
+    private String title;
     private String isbn;
+
+    @ManyToOne
+    private Publisher publisher;
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
     @ManyToMany
-    @JoinTable(name = "author_book" ,
-               joinColumns = @JoinColumn(name="book_id"),
-               inverseJoinColumns = @JoinColumn(name="author_id")
-                )
+    @JoinTable(name = "author_book", joinColumns=@JoinColumn(name = "book_id"),
+            inverseJoinColumns =@JoinColumn(name = "author_id"))
+
     private Set<Author> authors=new HashSet<>();
+
     public Book() {
     }
 
     public Book(String title, String isbn) {
-        Title = title;
+        this.title = title;
         this.isbn = isbn;
-       // this.authors = authors;
+
     }
 
     public Long getId() {
@@ -35,11 +49,11 @@ public class Book {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getIsbn() {
@@ -62,7 +76,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", Title='" + Title + '\'' +
+                ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
                 ", authors=" + authors +
                 '}';

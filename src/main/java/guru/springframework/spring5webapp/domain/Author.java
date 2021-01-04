@@ -1,10 +1,11 @@
-package models;
+package guru.springframework.spring5webapp.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 @Entity
-public class Author {
+public class Author{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +15,9 @@ public class Author {
     private String lastName;
 
     @ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();
+    private Set<Book> books=new HashSet<>();
 
-    public Author() {
-    }
+    public Author() { }
 
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
